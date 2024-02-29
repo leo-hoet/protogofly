@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for protofly on 2024-02-27T22:14:28-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'protofly'
+primary_region = 'eze'
+
+
+[env]
+PORT = '8080'
+
+
+[[services]]
+internal_port = 5000
+protocol = "tcp"
+
+[[services.ports]]
+port = "5000"
+
+[[vm]]
+size = 'shared-cpu-1x'
