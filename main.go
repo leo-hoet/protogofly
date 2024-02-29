@@ -1,31 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"io"
+	"log"
 	"net"
 )
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
-	io.Copy(conn, conn) // Copy data from client to client, echoing it back
+	io.Copy(conn, conn)
 }
 
 func main() {
 	listener, err := net.Listen("tcp", ":5000")
 	if err != nil {
-		fmt.Println("Error listening:", err)
-		return
+		log.Fatalln("Could not open tcp server: ", err.Error())
 	}
 	defer listener.Close()
 
-	fmt.Println("Server listening on port 8080")
+	log.Println("Starting TCP server in 5000")
+
 	for {
-		conn, err := listener.Accept() // Accept new connections
+		conn, err := listener.Accept()
 		if err != nil {
-			fmt.Println("Error accepting connection:", err)
+			log.Println("Error accepting connection: ", err)
 			continue
 		}
-		go handleConnection(conn) // Handle connection concurrently
+		go handleConnection(conn)
 	}
 }
